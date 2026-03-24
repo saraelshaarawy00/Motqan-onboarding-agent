@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Setup Assistant | Translation Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <!-- Floating button to trigger the assistant -->
+    <button id="floating-trigger" class="floating-trigger" aria-label="Open AI Setup Assistant">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>AI Assistant</span>
+    </button>
+
+    <!-- AI Setup Assistant Panel -->
+    <div id="ai-panel" class="ai-panel hidden">
+        <div class="panel-header">
+            <div class="header-info">
+                <h2>AI Setup Assistant</h2>
+                <p>Start translating in seconds</p>
+            </div>
+            <button id="close-panel" class="close-btn" aria-label="Close Assistant">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Progress Bar & Checklist -->
+        <div class="progress-section">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar" style="width: 33%;"></div>
+            </div>
+            <div class="step-indicators">
+                <span class="step-dot active" id="dot-1"></span>
+                <span class="step-dot" id="dot-2"></span>
+                <span class="step-dot" id="dot-3"></span>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            
+            <!-- Step 1: Content Input -->
+            <div class="step-container active" id="step-1">
+                <div class="ai-message">
+                    <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="message-bubble">
+                        <p>Hi! Let's get your translation ready. What would you like to translate?</p>
+                    </div>
+                </div>
+
+                <div class="user-interaction">
+                    <div class="upload-box" id="upload-box">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Drag & drop a file here or <span>browse</span></p>
+                        <input type="file" id="file-input" hidden>
+                    </div>
+                    <div class="divider"><span>OR</span></div>
+                    <textarea id="text-input" placeholder="Paste your text here..."></textarea>
+                    <div id="file-preview" class="file-preview hidden">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <span id="file-name-display">document.docx</span>
+                        <i class="fa-solid fa-xmark remove-file" id="remove-file"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Target Language -->
+            <div class="step-container hidden" id="step-2">
+                <div class="ai-message">
+                    <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="message-bubble">
+                        <p>Great! <span id="auto-detect-msg" class="smart-feature"><i class="fa-solid fa-bolt"></i> Source language detected: English.</span> What language should we translate this to?</p>
+                    </div>
+                </div>
+
+                <div class="user-interaction">
+                    <div class="language-chips" id="language-chips">
+                        <button class="chip" data-lang="es">Spanish</button>
+                        <button class="chip" data-lang="fr">French</button>
+                        <button class="chip" data-lang="de">German</button>
+                        <button class="chip" data-lang="zh">Chinese</button>
+                        <button class="chip" data-lang="ja">Japanese</button>
+                        <button class="chip" data-lang="ar">Arabic</button>
+                    </div>
+                    <div class="custom-select">
+                        <select id="language-select">
+                            <option value="">Or select another language...</option>
+                            <option value="it">Italian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="ko">Korean</option>
+                            <option value="hi">Hindi</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Translation Tone/Type -->
+            <div class="step-container hidden" id="step-3">
+                <div class="ai-message">
+                    <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="message-bubble">
+                        <p>Almost done. How should the translation sound? We recommend 'Business' based on your text structure.</p>
+                    </div>
+                </div>
+
+                <div class="user-interaction">
+                    <div class="tone-cards" id="tone-cards">
+                        <div class="tone-card" data-tone="formal">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <div class="card-info">
+                                <h4>Formal</h4>
+                                <p>Professional & respectful</p>
+                            </div>
+                        </div>
+                        <div class="tone-card recommended" data-tone="business">
+                            <div class="recommended-badge">Recommended</div>
+                            <i class="fa-solid fa-building"></i>
+                            <div class="card-info">
+                                <h4>Business</h4>
+                                <p>Clear & corporate</p>
+                            </div>
+                        </div>
+                        <div class="tone-card" data-tone="casual">
+                            <i class="fa-solid fa-face-smile"></i>
+                            <div class="card-info">
+                                <h4>Casual</h4>
+                                <p>Friendly & relaxed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-state hidden" id="loading-state">
+                <div class="spinner"></div>
+                <p>Processing your content...</p>
+            </div>
+
+        </div>
+
+        <div class="panel-footer">
+            <button id="btn-secondary" class="btn-secondary hidden" aria-label="Go Back">Back</button>
+            <button id="btn-primary" class="btn-primary" aria-label="Continue to next step" disabled>Continue</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
