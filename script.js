@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPrimary = document.getElementById('btn-primary');
     const btnSecondary = document.getElementById('btn-secondary');
     const loadingState = document.getElementById('loading-state');
+    const successState = document.getElementById('success-state');
     
     // Inputs Step 0
     const serviceCards = document.querySelectorAll('.service-card');
@@ -134,9 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Final submission
             simulateAIProcessing(() => {
-                // Done - Hide everything and show completion or reset
+                // Done - Hide everything and show successState
                 steps.forEach(s => s.classList.add('hidden'));
-                loadingState.innerHTML = `
+                successState.classList.remove('hidden');
+                
+                successState.innerHTML = `
                     <div style="text-align:center; color: var(--success); font-size: 3rem; margin-bottom:10px;">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
