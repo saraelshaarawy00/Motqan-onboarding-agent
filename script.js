@@ -7,12 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('close-panel');
     
     const steps = [
+        document.getElementById('step-0'),
         document.getElementById('step-1'),
         document.getElementById('step-2'),
         document.getElementById('step-3')
     ];
     
     const dots = [
+        document.getElementById('dot-0'),
         document.getElementById('dot-1'),
         document.getElementById('dot-2'),
         document.getElementById('dot-3')
@@ -23,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSecondary = document.getElementById('btn-secondary');
     const loadingState = document.getElementById('loading-state');
     
+    // Inputs Step 0
+    const serviceCards = document.querySelectorAll('.service-card');
+
     // Inputs Step 1
     const textInput = document.getElementById('text-input');
     const uploadBox = document.getElementById('upload-box');
@@ -30,6 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const filePreview = document.getElementById('file-preview');
     const fileNameDisplay = document.getElementById('file-name-display');
     const removeFileBtn = document.getElementById('remove-file');
+
+    // TM Section
+    const tmToggle = document.getElementById('tm-toggle');
+    const tmUploadArea = document.getElementById('tm-upload-area');
+    const tmUploadBox = document.getElementById('tm-upload-box');
+    const tmFileInput = document.getElementById('tm-file-input');
+    const tmFilePreview = document.getElementById('tm-file-preview');
+    const tmFileName = document.getElementById('tm-file-name');
+    const removeTmFileBtn = document.getElementById('remove-tm-file');
     
     // Inputs Step 2
     const languageChips = document.querySelectorAll('.chip');
@@ -40,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // State
     let currentStepIndex = 0;
+    let hasService = false;
     let hasContent = false;
     let hasLanguage = false;
     let hasTone = true; // Pre-selected default
@@ -91,13 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentStepIndex === 0) {
             btnSecondary.classList.add('hidden');
             btnPrimary.textContent = "Continue";
-            btnPrimary.disabled = !hasContent;
+            btnPrimary.disabled = !hasService;
         } else if (currentStepIndex === 1) {
             btnSecondary.classList.remove('hidden');
             btnSecondary.textContent = "Back";
             btnPrimary.textContent = "Continue";
-            btnPrimary.disabled = !hasLanguage;
+            btnPrimary.disabled = !hasContent;
         } else if (currentStepIndex === 2) {
+            btnSecondary.classList.remove('hidden');
+            btnSecondary.textContent = "Back";
+            btnPrimary.textContent = "Continue";
+            btnPrimary.disabled = !hasLanguage;
+        } else if (currentStepIndex === 3) {
             btnSecondary.classList.remove('hidden');
             btnSecondary.textContent = "Back";
             btnPrimary.textContent = "Translate Now";
@@ -120,15 +140,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="text-align:center; color: var(--success); font-size: 3rem; margin-bottom:10px;">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
-                    <h3 style="color:var(--text-main); font-weight:600;">Translation Started!</h3>
-                    <p style="text-align:center;">Your document is being translated now.</p>
+                    <h3 style="color:var(--text-main); font-weight:600; text-align:center;">Translation Ready!</h3>
+                    <p style="text-align:center; font-size: 0.9rem; margin-bottom: 20px;">Your content has been processed efficiently.</p>
+                    
+                    <div class="result-actions">
+                        <button class="btn-primary" id="go-to-order">
+                            <i class="fa-solid fa-cart-shopping"></i> Go to Order
+                        </button>
+                        <button class="btn-primary btn-download" id="download-btn">
+                            <i class="fa-solid fa-download"></i> Download Result
+                        </button>
+                    </div>
                 `;
                 btnPrimary.classList.add('hidden');
                 btnSecondary.textContent = "Close";
                 btnSecondary.onclick = () => {
                     closeBtn.click();
-                    setTimeout(() => location.reload(), 300); // Super simple reset
+                    setTimeout(() => location.reload(), 300);
                 };
+
+                // Add listeners to new result buttons
+                document.getElementById('go-to-order').onclick = () => alert('Redirecting to order page...');
+                document.getElementById('download-btn').onclick = () => alert('Starting download...');
             });
         }
     });
@@ -153,6 +186,18 @@ document.addEventListener('DOMContentLoaded', () => {
             callback();
         }, 800); // 800ms of fake processing
     }
+
+    // ==========================================
+    // Step 0 Logic (Services)
+    // ==========================================
+    serviceCards.forEach(card => {
+        card.addEventListener('click', () => {
+            serviceCards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            hasService = true;
+            btnPrimary.disabled = false;
+        });
+    });
 
     // ==========================================
     // Step 1 Logic (Content)
@@ -194,6 +239,31 @@ document.addEventListener('DOMContentLoaded', () => {
         
         hasContent = textInput.value.trim().length > 0;
         btnPrimary.disabled = !hasContent;
+    });
+
+    // TM Logic
+    tmToggle.addEventListener('change', () => {
+        if (tmToggle.checked) {
+            tmUploadArea.classList.remove('hidden');
+        } else {
+            tmUploadArea.classList.add('hidden');
+        }
+    });
+
+    tmUploadBox.addEventListener('click', () => tmFileInput.click());
+
+    tmFileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            tmFileName.textContent = e.target.files[0].name;
+            tmFilePreview.classList.remove('hidden');
+            tmUploadBox.classList.add('hidden');
+        }
+    });
+
+    removeTmFileBtn.addEventListener('click', () => {
+        tmFileInput.value = '';
+        tmFilePreview.classList.add('hidden');
+        tmUploadBox.classList.remove('hidden');
     });
 
     // Drag and drop events
@@ -268,3 +338,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize progress
     updateProgress();
 });
+

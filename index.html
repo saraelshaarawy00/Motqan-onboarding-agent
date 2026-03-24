@@ -32,10 +32,11 @@
         <!-- Progress Bar & Checklist -->
         <div class="progress-section">
             <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar" style="width: 33%;"></div>
+                <div class="progress-bar" id="progress-bar" style="width: 25%;"></div>
             </div>
             <div class="step-indicators">
-                <span class="step-dot active" id="dot-1"></span>
+                <span class="step-dot active" id="dot-0"></span>
+                <span class="step-dot" id="dot-1"></span>
                 <span class="step-dot" id="dot-2"></span>
                 <span class="step-dot" id="dot-3"></span>
             </div>
@@ -43,12 +44,48 @@
 
         <div class="panel-body">
             
-            <!-- Step 1: Content Input -->
-            <div class="step-container active" id="step-1">
+            <!-- Step 0: Service Selection -->
+            <div class="step-container active" id="step-0">
                 <div class="ai-message">
                     <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
                     <div class="message-bubble">
-                        <p>Hi! Let's get your translation ready. What would you like to translate?</p>
+                        <p>Welcome! How can I help you today? Please select a service to begin.</p>
+                    </div>
+                </div>
+
+                <div class="user-interaction">
+                    <div class="service-cards" id="service-cards">
+                        <div class="service-card" data-service="ai">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <div class="card-info">
+                                <h4>AI Translation</h4>
+                                <p>Fast & instant results</p>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="human">
+                            <i class="fa-solid fa-user-check"></i>
+                            <div class="card-info">
+                                <h4>Human Validation</h4>
+                                <p>Expert review & polish</p>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="dtp">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <div class="card-info">
+                                <h4>DTP Services</h4>
+                                <p>Professional formatting</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Content Input -->
+            <div class="step-container hidden" id="step-1">
+                <div class="ai-message">
+                    <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="message-bubble">
+                        <p>Great choice. Now, what would you like to translate?</p>
                     </div>
                 </div>
 
@@ -60,6 +97,26 @@
                     </div>
                     <div class="divider"><span>OR</span></div>
                     <textarea id="text-input" placeholder="Paste your text here..."></textarea>
+                    
+                    <!-- TM/TB Upload Option -->
+                    <div class="tm-section">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="tm-toggle">
+                            <span class="toggle-text">Upload TM/TB (Optional)</span>
+                        </label>
+                        <div id="tm-upload-area" class="tm-upload-area hidden">
+                            <div class="mini-upload" id="tm-upload-box">
+                                <i class="fa-solid fa-database"></i>
+                                <span>Add TM/TB file</span>
+                                <input type="file" id="tm-file-input" hidden>
+                            </div>
+                            <div id="tm-file-preview" class="file-preview hidden">
+                                <span id="tm-file-name">tm_file.sdltm</span>
+                                <i class="fa-solid fa-xmark remove-file" id="remove-tm-file"></i>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="file-preview" class="file-preview hidden">
                         <i class="fa-solid fa-file-lines"></i>
                         <span id="file-name-display">document.docx</span>

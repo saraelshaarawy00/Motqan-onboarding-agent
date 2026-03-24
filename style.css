@@ -428,8 +428,95 @@ select:focus {
     color: var(--text-muted);
 }
 
-.tone-card.selected i {
+.tone-card.selected i, .service-card.selected i {
     color: var(--primary-color);
+}
+
+/* Service Cards (Reuse tone card logic but with specific container) */
+.service-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.service-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    background-color: var(--bg-panel);
+    transition: var(--transition);
+}
+
+.service-card:hover {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+}
+
+.service-card.selected {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+    box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.service-card i {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+}
+
+/* TM/TB Section */
+.tm-section {
+    margin-top: 8px;
+    padding: 12px;
+    background-color: var(--bg-main);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.toggle-label input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+}
+
+.tm-upload-area {
+    margin-top: 12px;
+    animation: fadeIn 0.3s ease;
+}
+
+.mini-upload {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-panel);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.mini-upload:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.mini-upload i {
+    font-size: 1rem;
 }
 
 .card-info h4 {
@@ -521,3 +608,22 @@ select:focus {
 .btn-secondary:hover {
     background-color: var(--border-hover);
 }
+
+/* Result Button Group */
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-download {
+    background-color: var(--success);
+    color: white;
+}
+
+.btn-download:hover {
+    background-color: #059669;
+}
+
