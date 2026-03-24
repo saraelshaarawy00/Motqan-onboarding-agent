@@ -145,10 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="result-actions">
                         <button class="btn-primary" id="go-to-order">
-                            <i class="fa-solid fa-cart-shopping"></i> Go to Order
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> Go to Order
                         </button>
                         <button class="btn-primary btn-download" id="download-btn">
-                            <i class="fa-solid fa-download"></i> Download Result
+                            <i class="fa-solid fa-file-arrow-down"></i> Download Translation File
                         </button>
                     </div>
                 `;
